@@ -20,7 +20,7 @@ and then open [http://localhost:8000](http://localhost:8000)
 Sample images may be downloaded from [https://www.oracle.com/middleware/technologies/content-experience-downloads.html](https://www.oracle.com/middleware/technologies/content-experience-downloads.html) under a separate license.  These images are provided for reference purposes only and may not hosted or redistributed by you.
 
 
-## Contributing
+## How to Contribute
 This is an open source project. See [CONTRIBUTING](https://github.com/oracle/oce-jet-blog-sample/blob/main/CONTRIBUTING.md) for details.
 
 
