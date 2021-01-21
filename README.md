@@ -1,5 +1,5 @@
 # Blog Site - Oracle JET
-This repository holds the sample source code for an [Oracle's JavaScript Extension Framework (JET)](https://www.oracle.com/webfolder/technetwork/jet/index.html) implementation of a blog site powered by Oracle Content and Experience.
+This repository holds the sample source code for an [Oracle JavaScript Extension Framework (JET)](https://www.oracle.com/webfolder/technetwork/jet/index.html) implementation of a blog site powered by Oracle Content and Experience.
 
 Please see the complete tutorial at:
 [https://docs.oracle.com/en/cloud/paas/content-cloud/headless-cms/tutorials.html](https://docs.oracle.com/en/cloud/paas/content-cloud/headless-cms/tutorials.html)
