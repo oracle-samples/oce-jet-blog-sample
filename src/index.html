@@ -1,0 +1,31 @@
+<!--
+  Copyright (c) 2021 Oracle and/or its affiliates.
+  Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+-->
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Getting Started Blog - Jet</title>
+    <link rel="icon" href="css/images/favicon.png" type="image/png" />
+
+    <!-- This is the main css file for the default Alta theme -->
+    <!-- injector:theme -->
+    <link rel="stylesheet" href="css/libs/oj/v8.0.0/alta/oj-alta-min.css" type="text/css"/>
+    <!-- endinjector -->    
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+  </head>
+
+  <body class="demo-disable-bg-image">
+    <!-- make use of oj-module to dynamically load views and view modules based on the state of the router. -->
+    <div id="routing-container">
+      <div data-bind="ojModule:router.moduleConfig"></div>
+    </div> 
+    
+    <script type="text/javascript" src="js/libs/require/require.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>      
+  </body>
+
+</html>

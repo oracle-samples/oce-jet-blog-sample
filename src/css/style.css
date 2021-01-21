@@ -1,0 +1,371 @@
+/**
+ * Copyright (c) 2021 Oracle and/or its affiliates.
+ * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+ */
+
+/*************************************************
+ * GLOBALS
+ *************************************************/
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+	margin: 0;
+  background-color:#fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.progress-spinner {
+  height: 40px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  width: 40px;
+
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.date {
+  margin-top: 3px;
+  color: rgb(115, 115, 115);
+  font-size: 0.875rem;
+}
+
+/* styles for '...' */
+/* http://hackingui.com/front-end/a-pure-css-solution-for-multiline-text-truncation/ */
+.description {
+  margin: 10px 0;
+  clear: both;
+  /* hide text if it more than N lines  */
+  overflow: hidden;
+  /* for set '...' in absolute position */
+  position: relative;
+  /* use this value to count block height */
+  line-height: 1.2em;
+  /* max-height = line-height (1.2) * lines max number (3) */
+  max-height: 3.6em;
+  /* fix problem when last visible word doesn't adjoin right side  */
+  text-align: justify;
+  /* place for '...' */
+  margin-right: -1em;
+  padding-right: 1em;
+  color:black;
+}
+
+/* create the ... */
+.description:before {
+  /* points in the end */
+  content: '...';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of block */
+  right: 0;
+  bottom: 0;
+}
+
+/* hide ... if we have text, which is less than or equal to max lines */
+.description:after {
+  /* points in the end */
+  content: '';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of text */
+  right: 0;
+  /* set width and height */
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  /* bg color = bg color under block */
+  background: #fff;;
+}
+
+.desc-wrapper {
+  padding:0px 20px 0;
+}
+
+#topics .topic:hover,
+#articles .article:hover,
+#topics .topic:hover .description:after,
+#articles .article:hover .description:after {
+  background-color: #f5f0f0;
+  cursor: pointer;
+}
+
+#header {
+  margin-bottom: 10px;
+}
+
+/************* Breadcrumb styles ***************/
+#breadcrumb {
+  padding: 10px 0;
+  font-weight: bold;
+}
+
+#breadcrumb ul{
+	list-style: none;
+}
+
+#breadcrumb ul li {
+	display: inline;
+	font-size: 1.25rem;
+}
+
+#breadcrumb ul li+li:before {
+	padding: 8px;
+	color: black;
+	content: ">\00a0";
+}
+
+#breadcrumb ul li a {
+  color:var(--oj-brand-color);
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#breadcrumb ul li a:hover {
+	text-decoration: underline;
+}
+
+.button-wrapper {
+  background: black;
+  background: var(--oj-brand-color);
+  opacity: 0.85;
+	border-width: 0px;
+  padding: 8px 25px;
+  font-size: 1rem;
+  line-height: 1.2;
+	letter-spacing: 1px;
+	margin-left: -.45vw;
+  display: inline-block;
+	-webkit-transform: skewX(-15deg);
+	-moz-transform: skewX(-15deg);
+	transform: skewX(-15deg);
+}
+
+.button {
+	color: white;
+	-webkit-transform: skewX(15deg);
+	-moz-transform: skewX(15deg);
+	transform: skewX(15deg);
+}
+
+/*************************************************
+ * HOME PAGE (Topic Listing)
+ *************************************************/
+.logo {
+  background-color: hsl(0, 0%, 95%);
+  color:var(--oj-brand-color);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 5px 5px 0px rgba(171,171,171,1);
+  border-bottom: 1px #ccc solid;
+}
+
+.logo ul {
+	list-style: none;
+}
+
+.logo ul li {
+  padding-left: 15px;
+  display: inline;
+}
+
+.logo ul li a {
+  font-weight: bold;
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logo ul li a:hover {
+  text-decoration: underline;
+}
+
+/* The thumbnail for the home page  */
+#company-thumbnail {
+  width: auto;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+/* The title for the header of the home page */
+#company-title {
+  margin-left: 20px;
+  flex-grow: 2;
+  color:var(--oj-brand-color);
+  font-size: 2em;
+  font-weight: bold;
+}
+
+@media (max-width: 480px) {
+  #company-title {
+    display: none;
+  }
+
+  #company-thumbnail {
+    width: 60%;
+    object-fit: contain;
+  }
+}
+
+/*************************************************
+ * TOPICS LIST 
+ *************************************************/
+
+/* The style for the element containing an "oj-list-view"  */
+#topics {
+  padding: 20px 0;
+  margin: auto;
+  max-width: 930px;
+}
+
+/* The style for the element containing an "oj-list-view"list item contents */
+.topic-list-item-container {
+  /* The following stops jet adding padding on the list item cards, */
+  padding: 0;
+  /* Have to have !important to ensure this takes precedence over any other value
+     added to the element via other styles added by jet */
+  width:300px !important;
+}
+
+/* This controls the display of an individual topic on the home page */
+#topics .topic {
+  position: relative;
+  text-align: center;
+}
+
+#topics .topic .title {
+  font-weight: bold;
+}
+
+#topics .topic img {
+  width: 100%;
+  height: 230px;
+  object-fit: contain;
+  margin-top:-20px;
+}
+
+.error {
+  color: gray;
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* 2 column layout for topics */
+@media (max-width: 930px) {
+  /* Should create two column layout and center it */
+  #topics  {
+    max-width: 620px;
+  }
+
+}
+/* 1 column layout for topics */
+@media (max-width: 620px) {
+  #topics  {
+    max-width: 310px;
+  }
+}
+
+/*************************************************
+ * ARTICLE LIST
+ *************************************************/
+/* This is where the article listing will render on the articles listing page */
+#articles {
+  max-width: 860px;
+  margin: 0px 12px
+} 
+
+/* The style for the element containing an "oj-list-view"list item contents */
+.article-list-item-container {
+  /* Have to have !important to ensure this takes precedence over any other value
+     added to the element via other styles added by jet */
+  width: 400px !important;
+  height: 160px !important;  
+}
+
+#articles .article {
+  padding: 0px 5px;
+}
+
+#articles .title-date .title {
+  color:var(--oj-brand-color);
+}
+
+/* This controls the display of an article on the article listing page */
+#articles img {
+  float: right;
+  width: 80px;
+  height: 80px;
+  padding: 5px 0 10px 5px;
+  object-fit: cover;
+}
+
+@media (max-width: 480px) {
+  .article-list-item-container {
+    min-width: 320px;
+  }
+}
+
+/*************************************************
+ * ARTICLE PAGE
+ *************************************************/
+/* This is where an individual article will render on the article page */
+#article {
+  padding: 0 20px;
+}
+
+/* This contains author information */
+#article .author {
+  overflow: auto;
+}
+
+/* This contains author information */
+#article .author img {
+  float: left;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+/* This controls the display of an article on the article listing page */
+#articles .title-date {
+  float: left;
+  width: 70%;
+  height: 80px;
+}
+
+#article figure {
+  display: block;
+  margin: auto;
+  text-align: center;
+  color:rgb(115, 115, 115);
+  margin-top: 30px;
+}
+
+#article figure img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+#article .content {
+  padding: 10px 0;
+}

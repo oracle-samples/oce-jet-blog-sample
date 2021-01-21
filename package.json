@@ -1,0 +1,34 @@
+{
+  "name": "oce-jet-blog-sample",
+  "version": "20.4.3",
+  "description": "OCE Sample Blog Site built using Oracle Jet",
+  "author": "Oracle America, Inc.",
+  "license": "UPL-1.0",
+  "scripts": {
+    "start": "ojet serve --theme=oceblog",
+    "build": "ojet build --theme=oceblog",
+    "lint": "eslint ./src --ext .js,.mjs",
+    "babel": "babel web/samples/oce-jet-blog-sample/js -d web/samples/oce-jet-blog-sample/js --ignore libs"
+  },
+  "dependencies": {
+    "@oracle/oraclejet": "~8.3.2",
+    "contentsdk": "https://samples.mycontentdemo.com/_sitesclouddelivery/renderer/app/sdk/npm/contentsdk-1.1.0.tgz",
+    "xss": "~1.0.8"
+  },
+  "devDependencies": {
+    "@babel/cli": "~7.12.1",
+    "@babel/core": "~7.12.3",
+    "@babel/plugin-transform-arrow-functions": "~7.12.1",
+    "@babel/preset-env": "~7.12.1",
+    "@oracle/eslint-config-oraclejet": "~8.3.0",
+    "@oracle/ojet-cli": "~8.3.0",
+    "@oracle/oraclejet-tooling": "~8.3.0",
+    "eslint": "~7.11.0",
+    "eslint-config-airbnb-base": "~14.2.0",
+    "eslint-plugin-import": "~2.22.1",
+    "node-sass": "~4.14.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}

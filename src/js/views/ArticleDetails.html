@@ -1,0 +1,81 @@
+<!-- 
+  Copyright (c) 2021 Oracle and/or its affiliates.
+  Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+-->
+
+<!-- Render error -->
+<oj-bind-if test="[[error]]">
+  <div class="error">
+    <h2>Article Not Found</h2>
+    <i>Unable to view article details.</i>
+  </div>
+</oj-bind-if>
+
+<!-- Render Loading -->
+<oj-bind-if test="[[loading() == true && error() == false]]">
+  <div class="progress-spinner">
+    <oj-progress
+      id="progressCircle"
+      type="circle"
+      value="{{progressValue}}">
+    </oj-progress>
+</div>
+</oj-bind-if>
+
+<!-- Render data -->
+<oj-bind-if test="[[loading() == false && error() == false]]">
+  <div>
+    <!-- Breadcrumbs  -->
+    <div id="breadcrumb">
+      <ul>
+        <li>
+          <a on-click="[[homeSelectedOnClick]]">Home</a>
+        </li> 
+        <li>
+          <a on-click="[[topicSelectedOnClick]]" >
+            <oj-bind-text value="[[topicName]]"></oj-bind-text>
+          </a>
+        </li>
+        <li>
+          <oj-bind-text value="[[articleName]]"></oj-bind-text>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Article Details --> 
+    <div id="article">
+      <div class="author">
+        <!-- Avatar -->
+        <oj-bind-if test="[[authorAvatarUrl]]">
+          <img :src="[[authorAvatarUrl]]" alt="Author Avatar"/>
+        </oj-bind-if>
+        
+        <!-- Author Name / Date -->
+        <div class="name_date">
+          <h4 class="title">
+            <oj-bind-text value="[[authorName]]"></oj-bind-text>
+          </h4>
+          <div class="date">                        
+            <oj-bind-text value="[[formattedDate]]"></oj-bind-text>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article Image and caption -->
+      <figure>
+        <oj-bind-if test="[[articleImageUrl]]">
+          <img :src="[[articleImageUrl]]" alt="Article">
+        </oj-bind-if>
+                        
+        <figcaption>
+          <oj-bind-text value="[[articleImageCaption]]"></oj-bind-text>
+        </figcaption>
+      </figure>
+      
+      <!-- Article Content -->
+      <div class="content">
+        <oj-bind-dom config="{{ articleContentConfig }}"></oj-bind-dom>                
+      </div> 
+    </div>
+  </div>
+</oj-bind-if>

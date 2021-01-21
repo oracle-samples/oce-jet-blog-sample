@@ -1,0 +1,63 @@
+<!-- 
+  Copyright (c) 2021 Oracle and/or its affiliates.
+  Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+-->
+
+<!-- Render error -->
+<oj-bind-if test="[[error]]">
+  <div class="error">
+    <h2>Topic Not Found</h2>
+    <i>Unable to list articles.</i>
+  </div>
+</oj-bind-if>
+
+<!-- Render Loading -->
+<oj-bind-if test="[[loading() == true && error() == false]]">
+  <div class="progress-spinner">
+    <oj-progress
+      id="progressCircle"
+      type="circle"
+      value="{{progressValue}}">
+    </oj-progress>
+  </div>
+</oj-bind-if>
+
+<!-- Render data -->
+<oj-bind-if test="[[loading() == false && error() == false]]">
+  <div>
+    <!-- Breadcrumbs --> 
+    <div id="breadcrumb">
+      <ul>
+        <li><a on-click="[[homeSelectedOnClick]]">Home</a></li> 
+        <li>
+          <oj-bind-text value="[[topicName]]"></oj-bind-text>
+        </li>
+      </ul>
+    </div>
+
+    <!-- list of articles -->
+    <div id="articles">
+      <oj-list-view 
+        id="articles" 
+        class="oj-listview-card-layout"
+        aria-label="articles list"
+        data="[[dataProvider]]"    
+        selection-mode="single"
+        on-selection-changed="[[articleSelectedOnClick]]"
+        style="border-style:none">
+    
+        <template slot="itemTemplate" data-oj-as="article">
+          <li class="article-list-item-container">
+            <oj-module config="[[ ModuleElementUtils.createConfig(
+              { name: 'ArticleListItem', 
+                  params: {'article':article, topicId : topicId }
+              } );]]">              
+            </oj-module>
+          </li>
+        </template>
+        
+      </oj-list-view>          
+    </div>
+    
+  </div>
+</oj-bind-if>    
