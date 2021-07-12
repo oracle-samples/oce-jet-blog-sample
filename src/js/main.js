@@ -48,7 +48,7 @@
         touchr: 'libs/touchr/touchr',
         corejs: 'libs/corejs/shim',
         'regenerator-runtime': 'libs/regenerator-runtime/runtime',
-        contentsdk: 'libs/contentsdk/content.min',
+        contentsdk: 'libs/contentsdk/content',
         xss: 'libs/xss/xss',
       },
       shim: {

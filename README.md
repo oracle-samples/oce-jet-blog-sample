@@ -1,29 +1,53 @@
-# Blog Site - Oracle JET
-This repository holds the sample source code for an [Oracle JavaScript Extension Framework (JET)](https://www.oracle.com/webfolder/technetwork/jet/index.html) implementation of a blog site powered by Oracle Content and Experience.
+# About Oracle JET Blog Sample
+This repository holds the sample source code for an [Oracle's JavaScript Extension Framework (JET)](https://www.oracle.com/webfolder/technetwork/jet/index.html) implementation of a blog site powered by Oracle Content Management.
 
-Please see the complete tutorial at:
-[https://docs.oracle.com/en/cloud/paas/content-cloud/headless-cms/tutorials.html](https://docs.oracle.com/en/cloud/paas/content-cloud/headless-cms/tutorials.html)
-
-A live version of this project is available at:
-[https://headless.mycontentdemo.com/samples/oce-jet-blog-sample](https://headless.mycontentdemo.com/samples/oce-jet-blog-sample)
-
+Please see the complete [tutorial](https://www.oracle.com/pls/topic/lookup?ctx=cloud&id=oce-jet-blog-sample) and the live [demo](https://headless.mycontentdemo.com/samples/oce-jet-blog-sample).
 
 ## Running the project
+
 To build this project:
-> npm install  
-> npm run start
 
-and then open [http://localhost:8000](http://localhost:8000)
+```shell
+npm install  
+npm run build
+```
 
+To run this project when no authorization is required:
+
+```shell
+npm run start
+```
+
+To run this project when authorization is required (previewing content,
+viewing content from a secure channel) use this command to start the server component:
+
+```shell
+npm run start-server
+```
+
+and then start the client:
+
+```shell
+npm run start
+```
+
+and then open [http://localhost:8080](http://localhost:8080)
 
 ## Images
-Sample images may be downloaded from [https://www.oracle.com/middleware/technologies/content-experience-downloads.html](https://www.oracle.com/middleware/technologies/content-experience-downloads.html) under a separate license.  These images are provided for reference purposes only and may not hosted or redistributed by you.
 
+Sample images may be downloaded from [https://www.oracle.com/middleware/technologies/content-experience-downloads.html](https://www.oracle.com/middleware/technologies/content-experience-downloads.html) under a separate license.  These images are provided for reference purposes only and may not be hosted or redistributed by you.
 
-## How to Contribute
-This is an open source project. See [CONTRIBUTING](https://github.com/oracle/oce-jet-blog-sample/blob/main/CONTRIBUTING.md) for details.
+## Contributing
 
+This project welcomes contributions from the community. Before submitting a pull
+request, please [review our contribution guide](./CONTRIBUTING.md).
+
+## Security
+
+Please consult the [security guide](./SECURITY.md) for our responsible security
+vulnerability disclosure process.
 
 ## License
-Copyright (c) 2021 Oracle and/or its affiliates and released  under the 
+
+Copyright (c) 2020, 2021 Oracle and/or its affiliates and released under the
 [Universal Permissive License (UPL)](https://oss.oracle.com/licenses/upl/), Version 1.0

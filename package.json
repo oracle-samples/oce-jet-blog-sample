@@ -1,18 +1,22 @@
 {
   "name": "oce-jet-blog-sample",
-  "version": "20.4.3",
-  "description": "OCE Sample Blog Site built using Oracle Jet",
+  "version": "21.7.1",
+  "description": "A simple blog site built using Oracle Jet and Oracle Content Management",
   "author": "Oracle America, Inc.",
   "license": "UPL-1.0",
   "scripts": {
-    "start": "ojet serve --theme=oceblog",
-    "build": "ojet build --theme=oceblog",
+    "start-server": "node server.js",
+    "start": "ojet serve --theme=contentblog",
+    "build": "ojet build --theme=contentblog",
     "lint": "eslint ./src --ext .js,.mjs",
     "babel": "babel web/samples/oce-jet-blog-sample/js -d web/samples/oce-jet-blog-sample/js --ignore libs"
   },
   "dependencies": {
+    "@oracle/content-management-sdk": "~1.2.0",
     "@oracle/oraclejet": "~8.3.2",
-    "contentsdk": "https://samples.mycontentdemo.com/_sitesclouddelivery/renderer/app/sdk/npm/contentsdk-1.1.0.tgz",
+    "cors": "~2.8.5",
+    "express": "~4.17.1",
+    "node-fetch": "~2.6.1",
     "xss": "~1.0.8"
   },
   "devDependencies": {

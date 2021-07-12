@@ -9,7 +9,6 @@
 define([
   'knockout',
   'ojs/ojrouter',
-  'contentsdk',
   'js/scripts/server-config-utils.js',
   'js/scripts/services.js',
   'js/scripts/utils.js',
@@ -17,7 +16,7 @@ define([
   'ojs/ojbinddom',
   'ojs/ojprogress',
   'xss'
-], function (ko, Router, contentSDK, serverConfigUtils, services, utils, HtmlUtils) {
+], function (ko, Router, serverConfigUtils, services, utils, HtmlUtils) {
   /**
    * The view model for the main content view template
    */
@@ -64,14 +63,11 @@ define([
     self.loading = ko.observable(true);
     self.error = ko.observable(false);
 
-    // Get the server configuration from the "oce.json" file
-    serverConfigUtils.parseServerConfig
-      .then((serverconfig) => {
-        // get the client to connect to CEC
-        const deliveryClient = contentSDK.createDeliveryClient(serverconfig);
-
+    // Get the data from the server
+    serverConfigUtils.getClient
+      .then((client) => {
         // Get the article details
-        services.fetchArticle(deliveryClient, articleId)
+        services.fetchArticle(client, articleId)
           .then((article) => {
             self.articleName(article.name);
             self.authorName(article.fields.author.name);
@@ -87,17 +83,21 @@ define([
             });
 
             // get the article image URL
-            services.getRenditionURL(deliveryClient, article.fields.image.id)
+            services.getRenditionURL(client, article.fields.image.id)
               .then((renditionUrl) => {
-                self.articleImageUrl(renditionUrl);
+                utils.getImageUrl(renditionUrl)
+                  .then((formattedUrl) => self.articleImageUrl(formattedUrl));
 
                 // Get the authors avatar image
                 services.getMediumRenditionURL(
-                  deliveryClient, article.fields.author.fields.avatar.id
+                  client, article.fields.author.fields.avatar.id
                 )
                   .then((thumbnailUrl) => {
-                    self.authorAvatarUrl(thumbnailUrl);
-                    self.loading(false);
+                    utils.getImageUrl(thumbnailUrl)
+                      .then((formattedUrl) => {
+                        self.authorAvatarUrl(formattedUrl);
+                        self.loading(false);
+                      });
                   });
               });
           })

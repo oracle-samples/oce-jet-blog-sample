@@ -5,15 +5,19 @@
 
 /**
   * This file contains a number of utility methods used to obtain data
-  * from the server using the ContentSDK JavaScript Library.
+  * from the server using the Oracle Content SDK JavaScript Library.
   */
 define(() => ({
   /*
    * Utility method to log an error.
    */
   logError(message, error) {
-    if (error && typeof error.statusMessage) {
+    if (error && error.statusMessage) {
       console.log(`${message} : `, error.statusMessage);
+    } else if (error.error && error.error.code && error.error.code === 'ETIMEDOUT') {
+      console.log(`${message} : `, error);
+    } else if (error.error && error.error.code) {
+      console.log(`${message} : `, error.error.code);
     } else if (error) {
       console.error(message, error);
     }
@@ -28,7 +32,6 @@ define(() => ({
   fetchHomePage(client) {
     return client.queryItems({
       q: '(type eq "OCEGettingStartedHomePage" AND name eq "HomePage")',
-      fields: 'all',
     }).then((topLevelItem) => {
       const returnVal = {
         logoID: topLevelItem.items[0].fields.company_logo.id,
@@ -51,8 +54,6 @@ define(() => ({
   fetchTopic(client, topicId) {
     return client.getItem({
       id: topicId,
-      fields: 'all',
-      expand: 'all',
     }).then((topic) => topic)
       .catch((error) => this.logError('Fetching topic failed', error));
   },
@@ -67,7 +68,6 @@ define(() => ({
   fetchArticles(client, topicId) {
     return client.queryItems({
       q: `(type eq "OCEGettingStartedArticle" AND fields.topic eq "${topicId}")`,
-      fields: 'all',
       orderBy: 'fields.published_date:desc',
     }).then((articles) => articles.items)
       .catch((error) => this.logError('Fetching articles failed', error));
@@ -83,7 +83,8 @@ define(() => ({
   fetchArticle(client, articleId) {
     return client.getItem({
       id: articleId,
-      expand: 'all',
+      expand: 'fields.author',
+      fields: 'fields.author',
     }).then((article) => article)
       .catch((error) => this.logError('Fetching article failed', error));
   },
@@ -98,8 +99,6 @@ define(() => ({
   getMediumRenditionURL(client, identifier) {
     return client.getItem({
       id: identifier,
-      fields: 'all',
-      expand: 'all',
     }).then((asset) => {
       const object = asset.fields.renditions.filter((item) => item.name === 'Medium')[0];
       const format = object.formats.filter((item) => item.format === 'jpg')[0];

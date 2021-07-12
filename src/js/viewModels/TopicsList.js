@@ -10,9 +10,9 @@
 define([
   'ojs/ojrouter',
   'knockout',
-  'contentsdk',
   'js/scripts/server-config-utils.js',
   'js/scripts/services.js',
+  'js/scripts/utils.js',
   'ojs/ojarraydataprovider',
   'ojs/ojmodule-element-utils',
   'ojs/ojmodule-element',
@@ -20,7 +20,7 @@ define([
   'ojs/ojlistview'
 ],
 function (
-  Router, ko, contentSDK, serverConfigUtils, services, ArrayDataProvider, ModuleElementUtils
+  Router, ko, serverConfigUtils, services, utils, ArrayDataProvider, ModuleElementUtils
 ) {
   /**
    * The view model for the main content view template
@@ -50,17 +50,14 @@ function (
     self.loading = ko.observable(true);
     self.error = ko.observable(false);
 
-    // Get the server configuration from the "oce.json" file
-    serverConfigUtils.parseServerConfig
-      .then((serverconfig) => {
-        // get the client to connect to CEC
-        const deliveryClient = contentSDK.createDeliveryClient(serverconfig);
-
+    // Get the data from the server
+    serverConfigUtils.getClient
+      .then((client) => {
         // get the top level item which contains the following information
         // - aboutURL, contactURL, company thumbnail url, company title, list of topics
-        services.fetchHomePage(deliveryClient)
+        services.fetchHomePage(client)
           .then((topLevelItem) => {
-            services.getRenditionURL(deliveryClient, topLevelItem.logoID)
+            services.getRenditionURL(client, topLevelItem.logoID)
               .then((url) => {
                 // list items
                 self.topics = topLevelItem.topics;
@@ -68,7 +65,8 @@ function (
 
                 // company title and logo thumbnail
                 self.companyName(topLevelItem.title);
-                self.companyThumbnailUrl(url);
+                utils.getImageUrl(url)
+                  .then((formattedUrl) => self.companyThumbnailUrl(formattedUrl));
 
                 // contact us and about us URLs
                 self.aboutUrl(topLevelItem.aboutUrl);

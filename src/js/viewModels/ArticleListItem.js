@@ -8,11 +8,10 @@
  */
 define([
   'knockout',
-  'contentsdk',
   'js/scripts/server-config-utils.js',
   'js/scripts/services.js',
   'js/scripts/utils.js',
-], function (ko, contentSDK, serverConfigUtils, services, utils) {
+], function (ko, serverConfigUtils, services, utils) {
   /**
    * The view model for the main content view template
    */
@@ -32,15 +31,13 @@ define([
     // value set when the data is obtained from the server
     self.articleUrl = ko.observable();
 
-    // Get the server configuration from the "oce.json" file
-    serverConfigUtils.parseServerConfig
-      .then((serverconfig) => {
-        // get the client to connect to CEC
-        const deliveryClient = contentSDK.createDeliveryClient(serverconfig);
-
-        services.getMediumRenditionURL(deliveryClient, article.fields.image.id)
+    // Get the data from the server
+    serverConfigUtils.getClient
+      .then((client) => {
+        services.getMediumRenditionURL(client, article.fields.image.id)
           .then((url) => {
-            self.articleUrl(url);
+            utils.getImageUrl(url)
+              .then((formattedUrl) => self.articleUrl(formattedUrl));
           })
           .catch((error) => console.error(error));
       })

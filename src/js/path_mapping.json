@@ -293,19 +293,19 @@
     },
     
     "contentsdk": {
-        "cdn": "3rdparty",
-        "cwd": "node_modules/contentsdk",
-        "debug": {
-          "src": "content.min.js",
-          "path": "libs/contentsdk/content.min.js",
-          "cdnPath": "contentsdk/content.min.js"
-        },
-        "release": {
-          "src": "content.min.js",
-          "path": "libs/contentsdk/content.min.js",
-          "cdnPath": "contentsdk/content.min.js"
-        }
+      "cdn": "3rdparty",
+      "cwd": "node_modules/@oracle/content-management-sdk/dist",
+      "debug": {
+        "src": "content.umd.js",
+        "path": "libs/content/content.js",
+        "cdnPath": "@oracle/content-management-sdk/dist/content.umd.js"
       },
+      "release": {
+        "src": "content.umd.js",
+        "path": "libs/content/content.js",
+        "cdnPath": "@oracle/content-management-sdk/dist/content.umd.js"
+      }
+    },
 
     "xss": {
       "cdn": "3rdparty",

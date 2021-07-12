@@ -9,7 +9,6 @@
 define([
   'knockout',
   'ojs/ojrouter',
-  'contentsdk',
   'js/scripts/server-config-utils.js',
   'js/scripts/services.js',
   'ojs/ojarraydataprovider',
@@ -19,7 +18,7 @@ define([
   'ojs/ojlistview'
 ],
 function (
-  ko, Router, contentSDK, serverConfigUtils, services, ArrayDataProvider, ModuleElementUtils
+  ko, Router, serverConfigUtils, services, ArrayDataProvider, ModuleElementUtils
 ) {
   /**
    * The view model for the main content view template
@@ -52,22 +51,19 @@ function (
     self.error = ko.observable(false);
     self.topicName = ko.observableArray();
 
-    // Get the server configuration from the "oce.json" file
-    serverConfigUtils.parseServerConfig
-      .then((serverconfig) => {
-        // get the client to connect to CEC
-        const deliveryClient = contentSDK.createDeliveryClient(serverconfig);
-
+    // Get the data from the server
+    serverConfigUtils.getClient
+      .then((client) => {
         // get the topic name to display in the breadcrumbs
         // the topic's list, which handles the navigation to the articles list,
         // does not contain the topic name, therefore we have to get it here
-        services.fetchTopic(deliveryClient, self.topicId)
+        services.fetchTopic(client, self.topicId)
           .then((topic) => {
             self.topicName(topic.name);
           });
 
         // fetch the articles for the topic
-        services.fetchArticles(deliveryClient, self.topicId)
+        services.fetchArticles(client, self.topicId)
           .then((retrievedArticles) => {
             self.articles = retrievedArticles;
             this.dataProvider = new ArrayDataProvider(retrievedArticles, { keyAttributes: 'id' });

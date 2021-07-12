@@ -30,7 +30,7 @@
     <div class="logo">
 
       <oj-bind-if test="[[companyThumbnailUrl]]">
-        <img id="company-thumbnail" data-bind="attr: { src: companyThumbnailUrl}" alt="Company icon"/>
+        <img id="company-thumbnail" :src="[[companyThumbnailUrl]]" alt="Company icon"/>
       </oj-bind-if>
 
       <h1 id="company-title">

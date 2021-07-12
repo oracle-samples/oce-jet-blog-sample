@@ -8,10 +8,10 @@
  */
 define([
   'knockout',
-  'contentsdk',
   'js/scripts/server-config-utils.js',
   'js/scripts/services.js',
-], function (ko, contentSDK, serverConfigUtils, services) {
+  'js/scripts/utils.js',
+], function (ko, serverConfigUtils, services, utils) {
   /**
    * The view model for the main content view template
    */
@@ -28,23 +28,21 @@ define([
     self.url = ko.observable();
     self.description = ko.observable();
 
-    // Get the server configuration from the "oce.json" file
-    serverConfigUtils.parseServerConfig
-      .then((serverconfig) => {
-        // get the client to connect to CEC
-        const deliveryClient = contentSDK.createDeliveryClient(serverconfig);
-
+    // Get the data from the server
+    serverConfigUtils.getClient
+      .then((client) => {
         // get the top level item which contains the following information
         // - aboutURL / contactURL / thumbnailURL / company title
         // - array of topic ids : These are passed to TopicsList
-        services.fetchTopic(deliveryClient, topicId)
+        services.fetchTopic(client, topicId)
           .then((topic) => {
             self.title(topic.name);
             self.description(topic.description);
 
-            services.getMediumRenditionURL(deliveryClient, topic.fields.thumbnail.id)
+            services.getMediumRenditionURL(client, topic.fields.thumbnail.id)
               .then((thumbnailUrl) => {
-                self.url(thumbnailUrl);
+                utils.getImageUrl(thumbnailUrl)
+                  .then((formattedUrl) => self.url(formattedUrl));
               })
               .catch((error) => console.error(error));
           })
