@@ -1,0 +1,46 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es6",
+    "module": "amd",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "jsxFactory": "h",
+    "lib": [
+      "es2015",
+      "dom",
+      "esnext.asynciterable"
+    ],
+    "typeRoots": [
+      "./types",
+      "./node_modules/@oracle/oraclejet/dist/types",
+      "./node_modules/@types"
+    ],
+    "paths": {
+      "ojs/*": [
+        "./node_modules/@oracle/oraclejet/dist/types/*"
+      ],
+      "react": [
+        "./node_modules/preact/compat/src/index.d.ts"
+      ],
+      "react-dom": [
+        "./node_modules/preact/compat/src/index.d.ts"
+      ],
+      "oj-sp/*": [
+        "./exchange_components/oj-sp/*"
+      ]
+    },
+    "declaration": true,
+    "noEmitOnError": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "rootDir": "./src",
+    "outDir": "./web",
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}

@@ -1,0 +1,113 @@
+/**
+ * Copyright (c) 2020, 2022, Oracle and/or its affiliates. All rights reserved.
+ * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+ */
+
+/*************************************************
+ * GLOBALS
+ *************************************************/
+ * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-size: 16px;
+  }
+  
+  body {
+    margin: 0;
+    background-color:#fff;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  
+  /* The following two styles are for IE and are overridden later for all other browsers */
+  .progress-spinner {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+  }
+  
+  .progress-spinner::after {
+    content:"Loading...";
+  }
+
+  /* Override the spinner styles for all browsers other than IE */
+  @supports not (-ms-high-contrast: none) {
+
+    .progress-spinner {
+      border: 4px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 4px solid rgba(188, 8, 7, .95);
+      display: block;
+      height: 40px;
+      width: 40px;
+      -ms-transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+    .progress-spinner::after {
+      content:"";
+    }
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(0deg);  /* IE 9 */
+      transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+  
+    }
+    100% {
+      -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(360deg);  /* IE 9 */
+      transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+  }
+  
+  @keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(0deg);  /* IE 9 */
+      transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+  
+    }
+    100% {
+      -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(360deg);  /* IE 9 */
+      transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+  }
+  
+  /*************************************************
+   * HOME PAGE (Topic Listing)
+   *************************************************/
+  .articleItem {
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 50px;
+    margin-bottom: 50px;
+  }
+
+  .topicHeading {
+    font-weight: bold;
+    font-size: 35px;
+  }
+  
+  .topicType {
+    text-align:left;
+    color:#535354;
+    margin-bottom: 10px;
+  }
+
+  /*************************************************
+   ARTICLE PAGE 
+   *************************************************/
+
+  oj-sp-item-overview .oj-sp-item-overview-image4x3 {
+    object-fit: contain !important;
+  }
