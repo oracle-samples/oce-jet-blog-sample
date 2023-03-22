@@ -29,26 +29,6 @@ function logError(message, error) {
 }
 
 /**
- * Flattens an array of arrays into a single array.
- *
- * Note:  ES6's array.flat() is not supported in Node pre version 11 so flatten manually.
- *
- * @param {Array} inArray - the array of arrays to flatten
- * @param {Array} result - the flattened array
- */
-function flattenArray(inArray, result = []) {
-  for (let i = 0, { length } = inArray; i < length; i += 1) {
-    const arrayElement = inArray[i];
-    if (Array.isArray(arrayElement)) {
-      flattenArray(arrayElement, result);
-    } else {
-      result.push(arrayElement);
-    }
-  }
-  return result;
-}
-
-/**
  * Private method for adding the specified format rendition to the rendition string
  *
  * @param {Object} url - the url which contains the rendition strings
@@ -179,7 +159,7 @@ function fetchHomePage(client) {
           companyTitle: title,
           aboutUrl,
           contactUrl,
-          topics: flattenArray(allTopics),
+          topics: allTopics.flat(),
         }
       )).catch((error) => logError('Fetching topics failed', error));
   }).catch((error) => logError('Fetching home page data failed', error));
@@ -265,7 +245,7 @@ export function fetchTopicArticles(topicId) {
     return Promise.all(promises)
       .then((allArticles) => ({
         topicId,
-        articles: flattenArray(allArticles),
+        articles: allArticles.flat(),
       }));
   }).catch((error) => logError('Fetching topic articles failed', error));
 }
