@@ -24,11 +24,11 @@
   "components": {
     "oj-sp": {
       "components": {
-        "welcome-page": "^2207.0.0",
-        "item-overview-page": "^2207.0.0",
-        "item-overview": "^2207.0.0",
-        "image-card": "^2207.0.0",
-        "header-welcome-banner": "^2207.0.0"
+        "welcome-page": "^2304.0.1",
+        "item-overview-page": "^2304.0.1",
+        "item-overview": "^2304.0.1",
+        "image-card": "^2304.0.1",
+        "header-welcome-banner": "^2304.0.1"
       }
     },
     "oj-sp-ref-color-thief": "^2.3.2"

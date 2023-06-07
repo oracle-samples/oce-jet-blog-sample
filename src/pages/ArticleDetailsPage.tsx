@@ -161,7 +161,8 @@ class ArticleDetailsPage extends Component<Props, State> {
                   <source srcSet={data.renditionUrls.jpgSrcset} />
                   <img
                     src={data.renditionUrls.small}
-                    alt='Article'
+                    alt='Article Image'
+                    class="cover-image"
                     width={parseInt(data.renditionUrls.width, 10) * 0.66}
                     height={parseInt(data.renditionUrls.height, 10) * 0.66}
                   />

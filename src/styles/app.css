@@ -111,3 +111,9 @@
   oj-sp-item-overview .oj-sp-item-overview-image4x3 {
     object-fit: contain !important;
   }
+
+  .cover-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
